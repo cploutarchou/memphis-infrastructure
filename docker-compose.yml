@@ -1,6 +1,6 @@
 services:
   memphis-metadata:
-    image: memphisos/memphis-metadata:latest
+    image: memphisos/memphis-metadata:docker-15.2.0-debian-11-r27
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U memphis -p 5005"]
       interval: 5s
@@ -30,7 +30,7 @@ services:
     networks:
       - memphis
     ports:
-      - "9000:9000"
+      - "127.0.0.1:9000:9000"
       - "6666:6666"
       - "7770:7770"
     environment:
@@ -41,7 +41,7 @@ services:
       METADATA_DB_HOST: memphis-metadata
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-
+      
   memphis-rest-gateway:
     image: "memphisos/memphis-rest-gateway:latest"
     depends_on:
